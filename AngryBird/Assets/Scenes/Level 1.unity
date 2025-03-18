@@ -380,6 +380,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6477136736444826795, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
   m_PrefabInstance: {fileID: 8562651858868564108}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1509313598 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 7574259754682180745, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+  m_PrefabInstance: {fileID: 8562651858868564108}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1627569723
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +554,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1412681652}
     m_Modifications:
+    - target: {fileID: 1626789530943857367, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626789530943857367, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730981163016191671, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730981163016191671, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277884746391398105, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: slingshotCollider
+      value: 
+      objectReference: {fileID: 1509313598}
+    - target: {fileID: 2630417642289213125, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 102f888aa0292524693503169228f72b, type: 3}
+    - target: {fileID: 2656898386400837719, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 2656898386400837719, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774887268757475483, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774887268757475483, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946821366525640034, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254091427633145263, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254091427633145263, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.95
+      objectReference: {fileID: 0}
     - target: {fileID: 6477136736444826795, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.67
@@ -590,14 +647,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7574259754682180745, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-      propertyPath: m_Size.y
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7574259754682180745, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7574259754682180745, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -609,6 +658,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slingshot
       objectReference: {fileID: 0}
+    - target: {fileID: 8695602754542917749, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d75b27b82fe358040bf63b1d78c7eb27, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
