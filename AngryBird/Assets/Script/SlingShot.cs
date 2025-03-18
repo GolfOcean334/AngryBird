@@ -36,7 +36,6 @@ public class SlingShot : MonoBehaviour
     [Header("Others")]
     bool isMouseDown;
 
-
     void Start()
     {
         lineRenderers[0].positionCount = 2;
