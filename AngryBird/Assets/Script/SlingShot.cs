@@ -10,6 +10,8 @@ public class SlingShot : MonoBehaviour
     [SerializeField] private Transform centerPosition;
     [SerializeField] private Transform idlePosition;
 
+    [SerializeField] private Collider2D slingshotCollider;
+
     [SerializeField] private Vector3 currentPosition;
 
     [SerializeField] private float maxLenght;
@@ -20,6 +22,8 @@ public class SlingShot : MonoBehaviour
     Rigidbody2D bird;
     Collider2D birdCollider;
     [SerializeField] private float birdPositionOffset;
+
+    [SerializeField] private float force;
 
     bool isMouseDown;
     void Start()
@@ -37,6 +41,11 @@ public class SlingShot : MonoBehaviour
         bird = Instantiate(birdPefab).GetComponent<Rigidbody2D>();
         birdCollider = bird.GetComponent<Collider2D>();
         birdCollider.enabled = false;
+
+        bird.isKinematic = true;
+
+        ResetStrips();
+        slingshotCollider.enabled = true;
     }
     void Update()
     {
@@ -51,6 +60,11 @@ public class SlingShot : MonoBehaviour
             currentPosition.y = Mathf.Clamp(currentPosition.y, bottomBoundary, currentPosition.y);
 
             SetStrips(currentPosition);
+
+            if (birdCollider)
+            {
+                birdCollider.enabled = true;
+            }
         }
         else
         {
@@ -65,6 +79,7 @@ public class SlingShot : MonoBehaviour
     private void OnMouseUp()
     {
         isMouseDown = false;
+        Shoot();
     }
 
     void ResetStrips()
@@ -83,5 +98,17 @@ public class SlingShot : MonoBehaviour
             bird.transform.position = position + direction.normalized * birdPositionOffset;
             bird.transform.right = -direction.normalized;
         }
+    }
+
+    void Shoot()
+    {
+        bird.isKinematic = false;
+        Vector3 birdForce = (currentPosition - centerPosition.position) * force * -1;
+        bird.velocity = birdForce;
+
+        bird = null;
+        birdCollider = null; 
+        slingshotCollider.enabled = false;
+        Invoke("CreateBird", 2);
     }
 }
