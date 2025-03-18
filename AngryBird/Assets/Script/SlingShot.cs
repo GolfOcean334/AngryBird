@@ -25,6 +25,12 @@ public class SlingShot : MonoBehaviour
 
     [SerializeField] private float force;
 
+    [SerializeField] private GameObject trajectoryPointPrefab;
+    [SerializeField] private int trajectoryPointCount = 30;
+    [SerializeField] private float trajectoryTimeStep = 0.1f;
+
+    private List<GameObject> trajectoryPoints = new List<GameObject>();
+
     bool isMouseDown;
     void Start()
     {
@@ -34,6 +40,7 @@ public class SlingShot : MonoBehaviour
         lineRenderers[1].SetPosition(0, stripPositions[1].position);
 
         CreateBird();
+        InitializeTrajectoryPoints();
     }
 
     private void CreateBird()
@@ -47,6 +54,7 @@ public class SlingShot : MonoBehaviour
         ResetStrips();
         slingshotCollider.enabled = true;
     }
+
     void Update()
     {
         if (isMouseDown)
@@ -60,6 +68,7 @@ public class SlingShot : MonoBehaviour
             currentPosition.y = Mathf.Clamp(currentPosition.y, bottomBoundary, currentPosition.y);
 
             SetStrips(currentPosition);
+            DisplayTrajectory();
 
             if (birdCollider)
             {
@@ -69,6 +78,7 @@ public class SlingShot : MonoBehaviour
         else
         {
             ResetStrips();
+            HideTrajectory();
         }
     }
 
@@ -107,8 +117,41 @@ public class SlingShot : MonoBehaviour
         bird.velocity = birdForce;
 
         bird = null;
-        birdCollider = null; 
+        birdCollider = null;
         slingshotCollider.enabled = false;
         Invoke("CreateBird", 2);
+    }
+
+    void InitializeTrajectoryPoints()
+    {
+        for (int i = 0; i < trajectoryPointCount; i++)
+        {
+            GameObject point = Instantiate(trajectoryPointPrefab);
+            point.SetActive(false);
+            trajectoryPoints.Add(point);
+        }
+    }
+
+    void DisplayTrajectory()
+    {
+        Vector3 initialVelocity = (currentPosition - centerPosition.position) * force * -1;
+        Vector3 currentPos = bird.transform.position;
+        Vector3 currentVelocity = initialVelocity;
+
+        for (int i = 0; i < trajectoryPointCount; i++)
+        {
+            trajectoryPoints[i].transform.position = currentPos;
+            trajectoryPoints[i].SetActive(true);
+            currentPos += currentVelocity * trajectoryTimeStep;
+            currentVelocity += (Vector3)Physics2D.gravity * trajectoryTimeStep;
+        }
+    }
+
+    void HideTrajectory()
+    {
+        foreach (var point in trajectoryPoints)
+        {
+            point.SetActive(false);
+        }
     }
 }
