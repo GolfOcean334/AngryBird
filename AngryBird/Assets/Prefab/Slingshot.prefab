@@ -711,6 +711,7 @@ GameObject:
   - component: {fileID: 6477136736444826795}
   - component: {fileID: 2277884746391398105}
   - component: {fileID: 7574259754682180745}
+  - component: {fileID: 2124997923022213749}
   m_Layer: 0
   m_Name: Slingshot
   m_TagString: Untagged
@@ -740,6 +741,7 @@ Transform:
   - {fileID: 3774887268757475483}
   - {fileID: 4254091427633145263}
   - {fileID: 5083452956767191311}
+  - {fileID: 402176162911176427}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2277884746391398105
@@ -766,12 +768,8 @@ MonoBehaviour:
   bottomBoundary: -2.5
   maxLenght: 3
   force: 5
-  trajectoryPointPrefab: {fileID: 6504725474949049088, guid: aebf1935cc7c50e40bf615b639aadd37, type: 3}
-  trajectoryPointCount: 30
-  trajectoryTimeStep: 0.1
-  birdPefab: {fileID: 9108485562512249434, guid: cc9ed87eb7e8987419ec798df4514244, type: 3}
+  birdManager: {fileID: 2738546359337243938}
   birdPositionOffset: -0.5
-  maxBirds: 3
 --- !u!61 &7574259754682180745
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -817,3 +815,64 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 3.5}
   m_EdgeRadius: 0
+--- !u!114 &2124997923022213749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669671132470170080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea59bbd91dd91e8439aaf062493b1d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trajectoryPointPrefab: {fileID: 6504725474949049088, guid: aebf1935cc7c50e40bf615b639aadd37, type: 3}
+  trajectoryPointCount: 30
+  trajectoryTimeStep: 0.1
+--- !u!1 &9065916961477288607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 402176162911176427}
+  - component: {fileID: 2738546359337243938}
+  m_Layer: 0
+  m_Name: BirdManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &402176162911176427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9065916961477288607}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12.67, y: -0.04, z: -0.054654222}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6477136736444826795}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2738546359337243938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9065916961477288607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0381675bcdb281c42812053f83762f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  birdPrefab: {fileID: 9108485562512249434, guid: cc9ed87eb7e8987419ec798df4514244, type: 3}
+  maxBirds: 3

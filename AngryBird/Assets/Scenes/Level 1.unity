@@ -132,52 +132,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2044449101493767470, guid: 58e175723004bb74d848a701585bfed5, type: 3}
   m_PrefabInstance: {fileID: 1930003288}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &321668688
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 321668689}
-  - component: {fileID: 321668690}
-  m_Layer: 0
-  m_Name: BirdManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &321668689
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 321668688}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1412681652}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &321668690
+--- !u!114 &321668690 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2738546359337243938, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+  m_PrefabInstance: {fileID: 8562651858868564108}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 321668688}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0381675bcdb281c42812053f83762f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdPrefab: {fileID: 9108485562512249434, guid: cc9ed87eb7e8987419ec798df4514244, type: 3}
-  maxBirds: 3
 --- !u!4 &380446082 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 282336211115434767, guid: 0c00221ca3f97bb4699c664821143683, type: 3}
@@ -536,11 +501,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &686866496 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8669671132470170080, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-  m_PrefabInstance: {fileID: 8562651858868564108}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &779289181
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +657,6 @@ Transform:
   - {fileID: 1509313596}
   - {fileID: 1627569724}
   - {fileID: 779289182}
-  - {fileID: 321668689}
   - {fileID: 978378304}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -711,21 +670,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6477136736444826795, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
   m_PrefabInstance: {fileID: 8562651858868564108}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1509313599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686866496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea59bbd91dd91e8439aaf062493b1d62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trajectoryPointPrefab: {fileID: 6504725474949049088, guid: aebf1935cc7c50e40bf615b639aadd37, type: 3}
-  trajectoryPointCount: 30
-  trajectoryTimeStep: 0.1
 --- !u!1 &1627569723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,27 +1317,19 @@ PrefabInstance:
     m_TransformParent: {fileID: 1412681652}
     m_Modifications:
     - target: {fileID: 2277884746391398105, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-      propertyPath: birdPefab
-      value: 
-      objectReference: {fileID: 9108485562512249434, guid: cc9ed87eb7e8987419ec798df4514244, type: 3}
-    - target: {fileID: 2277884746391398105, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
       propertyPath: birdManager
       value: 
       objectReference: {fileID: 321668690}
-    - target: {fileID: 2277884746391398105, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-      propertyPath: birdPrefabs.Array.size
-      value: 3
+    - target: {fileID: 2738546359337243938, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: dashForce
+      value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 2277884746391398105, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-      propertyPath: birdPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 9108485562512249434, guid: cc9ed87eb7e8987419ec798df4514244, type: 3}
-    - target: {fileID: 2277884746391398105, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-      propertyPath: birdPrefabs.Array.data[1]
+    - target: {fileID: 2738546359337243938, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: fastBirdPrefab
       value: 
       objectReference: {fileID: 9108485562512249434, guid: 16d8f6fb595cf9c41b1e2f59d4f2d898, type: 3}
-    - target: {fileID: 2277884746391398105, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-      propertyPath: birdPrefabs.Array.data[2]
+    - target: {fileID: 2738546359337243938, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: normalBirdPrefab
       value: 
       objectReference: {fileID: 9108485562512249434, guid: cc9ed87eb7e8987419ec798df4514244, type: 3}
     - target: {fileID: 6477136736444826795, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
@@ -1436,10 +1372,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7574259754682180745, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8669671132470170080, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
       propertyPath: m_Name
       value: Slingshot
@@ -1447,10 +1379,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8669671132470170080, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1509313599}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
