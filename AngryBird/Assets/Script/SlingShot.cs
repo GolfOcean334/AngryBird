@@ -5,33 +5,38 @@ using UnityEngine;
 
 public class SlingShot : MonoBehaviour
 {
+    [Header("Slingshot")]
     [SerializeField] private LineRenderer[] lineRenderers;
     [SerializeField] private Transform[] stripPositions;
     [SerializeField] private Transform centerPosition;
     [SerializeField] private Transform idlePosition;
-
     [SerializeField] private Collider2D slingshotCollider;
-
-    [SerializeField] private Vector3 currentPosition;
-
-    [SerializeField] private float maxLenght;
-
     [SerializeField] private float bottomBoundary;
+    [SerializeField] private float maxLenght;
+    [SerializeField] private float force;
 
+
+    [Header("Trajectory")]
+    [SerializeField] private GameObject trajectoryPointPrefab;
+    private Vector3 currentPosition;
+    [SerializeField] private int trajectoryPointCount = 30;
+    [SerializeField] private float trajectoryTimeStep = 0.1f;
+    private List<GameObject> trajectoryPoints = new List<GameObject>();
+
+
+    [Header("Birds")]
     [SerializeField] private GameObject birdPefab;
     Rigidbody2D bird;
     Collider2D birdCollider;
     [SerializeField] private float birdPositionOffset;
+    [SerializeField] private int maxBirds;
+    private int remainingBirds;
 
-    [SerializeField] private float force;
 
-    [SerializeField] private GameObject trajectoryPointPrefab;
-    [SerializeField] private int trajectoryPointCount = 30;
-    [SerializeField] private float trajectoryTimeStep = 0.1f;
-
-    private List<GameObject> trajectoryPoints = new List<GameObject>();
-
+    [Header("Others")]
     bool isMouseDown;
+
+
     void Start()
     {
         lineRenderers[0].positionCount = 2;
@@ -39,20 +44,24 @@ public class SlingShot : MonoBehaviour
         lineRenderers[0].SetPosition(0, stripPositions[0].position);
         lineRenderers[1].SetPosition(0, stripPositions[1].position);
 
+        remainingBirds = maxBirds;
         CreateBird();
         InitializeTrajectoryPoints();
     }
 
     private void CreateBird()
     {
-        bird = Instantiate(birdPefab).GetComponent<Rigidbody2D>();
-        birdCollider = bird.GetComponent<Collider2D>();
-        birdCollider.enabled = false;
+        if (remainingBirds > 0)
+        {
+            bird = Instantiate(birdPefab).GetComponent<Rigidbody2D>();
+            birdCollider = bird.GetComponent<Collider2D>();
+            birdCollider.enabled = false;
 
-        bird.isKinematic = true;
+            bird.isKinematic = true;
 
-        ResetStrips();
-        slingshotCollider.enabled = true;
+            ResetStrips();
+            slingshotCollider.enabled = true;
+        }
     }
 
     void Update()
@@ -119,6 +128,7 @@ public class SlingShot : MonoBehaviour
         bird = null;
         birdCollider = null;
         slingshotCollider.enabled = false;
+        remainingBirds--;
         Invoke("CreateBird", 2);
     }
 

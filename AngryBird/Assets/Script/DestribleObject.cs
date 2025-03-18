@@ -19,11 +19,6 @@ public class DestribleObject : MonoBehaviour
         UpdateSprite();
     }
 
-    void Update()
-    {
-
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bird") || collision.gameObject.CompareTag("Destructible"))
