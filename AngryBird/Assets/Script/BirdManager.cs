@@ -24,6 +24,8 @@ public class BirdManager : MonoBehaviour
         {
             Dash();
         }
+
+        UpdateBirdRotation();
     }
 
     public void InitializeBirds()
@@ -91,6 +93,15 @@ public class BirdManager : MonoBehaviour
             Vector2 dashDirection = bird.velocity.normalized;
             bird.velocity += dashDirection * dashForce;
             hasDashed = true;
+        }
+    }
+
+    private void UpdateBirdRotation()
+    {
+        if (bird != null && isLaunched)
+        {
+            float angle = Mathf.Atan2(bird.velocity.y, bird.velocity.x) * Mathf.Rad2Deg;
+            bird.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
     }
 }
