@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4363703972200905645}
   - component: {fileID: 3833742806833235934}
   - component: {fileID: 1921264178831687932}
-  - component: {fileID: -3492777728399782256}
+  - component: {fileID: -6591980187171690247}
   m_Layer: 0
-  m_Name: Fast Bird
+  m_Name: Explosive Bird
   m_TagString: Bird
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 3b5a6ecea0358fe44b2010200d55e1b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14428c3064c112e45b980ba07bb84f69, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -146,10 +146,10 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.037452698, y: 0}
+  m_Offset: {x: 0, y: -0.1}
   serializedVersion: 2
-  m_Radius: 0.3411293
---- !u!114 &-3492777728399782256
+  m_Radius: 0.3075838
+--- !u!114 &-6591980187171690247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
