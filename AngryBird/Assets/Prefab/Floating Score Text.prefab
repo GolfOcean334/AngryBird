@@ -92,10 +92,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 36
+  m_fontSize: 0.3
+  m_fontSizeBase: 0.3
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 0.1
   m_fontSizeMax: 72
   m_fontStyle: 19
@@ -162,7 +162,7 @@ RectTransform:
   m_GameObject: {fileID: 4005650000852172407}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.14581941}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4413775476712750278}
@@ -282,6 +282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMesh: {fileID: 5657051333758994989}
-  floatSpeed: 2
-  duration: 1
-  scaleMultiplier: 0.02
+  floatSpeed: 1
+  duration: 0.75
+  scaleMultiplier: 0.005
+  maxScale: 2.5
+  fadeDuration: 0.3

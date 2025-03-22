@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class FloatingScoreText : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class FloatingScoreText : MonoBehaviour
     [SerializeField] private float floatSpeed = 2f;
     [SerializeField] private float duration = 1f;
     [SerializeField] private float scaleMultiplier;
+    [SerializeField] private float maxScale = 2.5f;
+    [SerializeField] private float fadeDuration = 0.3f;
 
     private float timer = 0f;
     private Transform parent;
@@ -16,8 +19,12 @@ public class FloatingScoreText : MonoBehaviour
         if (textMesh != null)
         {
             textMesh.text = "+" + score.ToString();
-            float newScale = 1f + ((score / 100) * scaleMultiplier);
+
+            float newScale = Mathf.Min(1f + (score * scaleMultiplier), maxScale);
             textMesh.transform.localScale = Vector3.one * newScale;
+
+            textMesh.alpha = 0;
+            textMesh.DOFade(1f, fadeDuration);
         }
 
         parent = new GameObject("FloatingTextParent").transform;
@@ -29,9 +36,10 @@ public class FloatingScoreText : MonoBehaviour
     {
         parent.position += Vector3.up * floatSpeed * Time.deltaTime;
         timer += Time.deltaTime;
-        if (timer >= duration)
+
+        if (timer >= duration - fadeDuration)
         {
-            Destroy(parent.gameObject);
+            textMesh.DOFade(0f, fadeDuration).OnComplete(() => Destroy(parent.gameObject));
         }
     }
 }
