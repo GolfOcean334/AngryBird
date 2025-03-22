@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DestribleObject : MonoBehaviour
+public class DestructibleObject : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
@@ -11,6 +9,10 @@ public class DestribleObject : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     [SerializeField] private int damageMultiplier = 0;
+
+    [SerializeField] private GameObject floatingScoreTextPrefab;
+    [SerializeField] private int nbpoints = 100;
+    private float locationTextY = -2f;
 
     void Start()
     {
@@ -31,9 +33,30 @@ public class DestribleObject : MonoBehaviour
 
     private void TakeDamage(int damage)
     {
+        int oldHealth = currentHealth;
+
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateSprite();
+
+        int lostHealth = oldHealth - currentHealth;
+        int pointsGagnes = lostHealth * nbpoints;
+
+        if (pointsGagnes > 0)
+        {
+            ScoreManager.instance.AddScore(pointsGagnes);
+
+            if (floatingScoreTextPrefab != null)
+            {
+                Vector3 spawnPosition = transform.position;
+                GameObject floatingText = Instantiate(floatingScoreTextPrefab, spawnPosition, Quaternion.identity);
+                FloatingScoreText fst = floatingText.GetComponent<FloatingScoreText>();
+                if (fst != null)
+                {
+                    fst.Initialize(pointsGagnes);
+                }
+            }
+        }
 
         if (currentHealth <= 0)
         {

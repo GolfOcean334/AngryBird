@@ -168,3 +168,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5908be8322815b240ae1b62e3573c848, type: 3}
   - {fileID: 21300000, guid: 5eb9b2c5895aa304b8a37af2943ce6f4, type: 3}
   damageMultiplier: 3
+  floatingScoreTextPrefab: {fileID: 5092476132273285415, guid: e60c8b3aaf6edb047893133492b6da66, type: 3}
