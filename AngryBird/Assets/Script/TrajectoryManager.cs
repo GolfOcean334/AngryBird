@@ -39,7 +39,7 @@ public class TrajectoryManager : MonoBehaviour
     {
         if (bird == null) return; // Vérifie si l'oiseau est null pour éviter les erreurs
 
-        Vector3 initialVelocity = (currentPosition - centerPosition) * force * -1; // Calcule la vitesse initiale de l'oiseau
+        Vector3 initialVelocity = (centerPosition - currentPosition).normalized * force; // Calcule la vitesse initiale de l'oiseau
         Vector3 currentPos = bird.transform.position; // Position de départ de la trajectoire
         Vector3 currentVelocity = initialVelocity; // Stocke la vitesse actuelle de l'oiseau
 

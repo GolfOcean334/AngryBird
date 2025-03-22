@@ -52,15 +52,17 @@ public class SlingShot : MonoBehaviour
             // Met à jour la position des élastiques
             SetStrips(currentPosition);
 
+            // Ajoutez les offsets ici
+            Vector3 offsetPosition = currentPosition + new Vector3(birdPositionOffsetX, birdPositionOffsetY, 0);
+            float appliedForce = (centerPosition.position - offsetPosition).magnitude * force;
             // Affiche la trajectoire prévue de l'oiseau
-            TrajectoryManager.Instance.DisplayTrajectory(birdManager.GetCurrentBird(), currentPosition, centerPosition.position, force);
+            TrajectoryManager.Instance.DisplayTrajectory(birdManager.GetCurrentBird(), offsetPosition, centerPosition.position, appliedForce);
 
             // Active le collider de l'oiseau (s'il était désactivé auparavant)
             birdManager.EnableCollider();
         }
         else
         {
-            // Réinitialise les élastiques et masque la trajectoire si la souris n'est pas enfoncée
             ResetStrips();
             TrajectoryManager.Instance.HideTrajectory();
         }

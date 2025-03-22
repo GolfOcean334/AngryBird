@@ -2430,6 +2430,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1412681652}
     m_Modifications:
+    - target: {fileID: 2124997923022213749, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
+      propertyPath: trajectoryPointCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2277884746391398105, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
       propertyPath: birdPositionOffsetX
       value: -0.5
