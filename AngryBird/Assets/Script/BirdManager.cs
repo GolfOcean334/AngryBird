@@ -28,6 +28,9 @@ public class BirdManager : MonoBehaviour
     [SerializeField] private float radiusExplosion; // Rayon d'explosion pour l'oiseau explosif
     [SerializeField] private float explosionForce; // Force de l'explosion
 
+    [Header("UI Manager")]
+    [SerializeField] private UIManager UIManager;
+
     // Enumération des types d'oiseaux disponibles
     private enum BirdType
     {
@@ -41,6 +44,11 @@ public class BirdManager : MonoBehaviour
     {
         // Si aucun oiseau n'est actif ou qu'il n'a pas été lancé, ne rien faire
         if (bird == null || !isLaunched) return;
+
+        if (remainingBirds <= 0)
+        {
+            UIManager.ShowUIEndGame();
+        }
 
         // Détection de l'entrée utilisateur pour déclencher une capacité spéciale
         if (Input.GetKeyDown(KeyCode.Space))

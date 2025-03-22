@@ -769,7 +769,8 @@ MonoBehaviour:
   maxLenght: 3
   force: 5
   birdManager: {fileID: 2738546359337243938}
-  birdPositionOffset: -0.5
+  birdPositionOffsetX: -0.5
+  birdPositionOffsetY: 0.2
 --- !u!61 &7574259754682180745
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -828,7 +829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trajectoryPointPrefab: {fileID: 6504725474949049088, guid: aebf1935cc7c50e40bf615b639aadd37, type: 3}
-  trajectoryPointCount: 30
+  trajectoryPointCount: 20
   trajectoryTimeStep: 0.1
 --- !u!1 &9065916961477288607
 GameObject:
@@ -877,6 +878,9 @@ MonoBehaviour:
   normalBirdPrefab: {fileID: 9108485562512249434, guid: cc9ed87eb7e8987419ec798df4514244, type: 3}
   fastBirdPrefab: {fileID: 9108485562512249434, guid: 16d8f6fb595cf9c41b1e2f59d4f2d898, type: 3}
   doubleJumpBirdPrefab: {fileID: 9108485562512249434, guid: 67efc09afb5d1f94b87aa0b197a4a15d, type: 3}
-  maxBirds: 3
+  explosiveBirdPrefab: {fileID: 9108485562512249434, guid: 5d39f489f4fad104ab463bb4443dcd59, type: 3}
+  maxBirds: 30
   dashForce: 20
   jumpForce: 5
+  radiusExplosion: 3
+  explosionForce: 200

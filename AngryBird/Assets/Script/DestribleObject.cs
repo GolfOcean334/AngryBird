@@ -12,7 +12,6 @@ public class DestructibleObject : MonoBehaviour
 
     [SerializeField] private GameObject floatingScoreTextPrefab;
     [SerializeField] private int nbpoints = 100;
-    private float locationTextY = -2f;
 
     void Start()
     {
@@ -48,7 +47,8 @@ public class DestructibleObject : MonoBehaviour
 
             if (floatingScoreTextPrefab != null)
             {
-                Vector3 spawnPosition = transform.position;
+                float rangeSpawnText = Random.Range(-4, 4);
+                Vector3 spawnPosition = transform.position + new Vector3(rangeSpawnText, -2f, 0);
                 GameObject floatingText = Instantiate(floatingScoreTextPrefab, spawnPosition, Quaternion.identity);
                 FloatingScoreText fst = floatingText.GetComponent<FloatingScoreText>();
                 if (fst != null)
