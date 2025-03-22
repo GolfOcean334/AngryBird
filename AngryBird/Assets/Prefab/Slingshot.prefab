@@ -879,8 +879,9 @@ MonoBehaviour:
   fastBirdPrefab: {fileID: 9108485562512249434, guid: 16d8f6fb595cf9c41b1e2f59d4f2d898, type: 3}
   doubleJumpBirdPrefab: {fileID: 9108485562512249434, guid: 67efc09afb5d1f94b87aa0b197a4a15d, type: 3}
   explosiveBirdPrefab: {fileID: 9108485562512249434, guid: 5d39f489f4fad104ab463bb4443dcd59, type: 3}
-  maxBirds: 30
+  maxBirds: 3
   dashForce: 20
   jumpForce: 5
   radiusExplosion: 3
   explosionForce: 200
+  UIManager: {fileID: 0}

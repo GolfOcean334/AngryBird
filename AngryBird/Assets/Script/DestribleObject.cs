@@ -47,7 +47,7 @@ public class DestructibleObject : MonoBehaviour
 
             if (floatingScoreTextPrefab != null)
             {
-                float rangeSpawnText = Random.Range(-4, 4);
+                float rangeSpawnText = Random.Range(-2, 2);
                 Vector3 spawnPosition = transform.position + new Vector3(rangeSpawnText, -2f, 0);
                 GameObject floatingText = Instantiate(floatingScoreTextPrefab, spawnPosition, Quaternion.identity);
                 FloatingScoreText fst = floatingText.GetComponent<FloatingScoreText>();

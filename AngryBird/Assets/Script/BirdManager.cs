@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BirdManager : MonoBehaviour
@@ -44,11 +45,6 @@ public class BirdManager : MonoBehaviour
     {
         // Si aucun oiseau n'est actif ou qu'il n'a pas été lancé, ne rien faire
         if (bird == null || !isLaunched) return;
-
-        if (remainingBirds <= 0)
-        {
-            UIManager.ShowUIEndGame();
-        }
 
         // Détection de l'entrée utilisateur pour déclencher une capacité spéciale
         if (Input.GetKeyDown(KeyCode.Space))
@@ -126,6 +122,19 @@ public class BirdManager : MonoBehaviour
     public void BirdLanded()
     {
         currentBirdType = BirdType.Normal;
+
+        // Lance la coroutine pour afficher l'UI de fin de jeu si aucun oiseau n'est restant
+        if (remainingBirds <= 0)
+        {
+            StartCoroutine(ShowEndGameAfterDelay());
+        }
+    }
+
+    // Affiche l'UI de fin de jeu après un délai de 5 secondes
+    private IEnumerator ShowEndGameAfterDelay()
+    {
+        yield return new WaitForSeconds(5f);
+        UIManager.ShowUIEndGame();
     }
 
     // Retourne l'oiseau actuellement en jeu
