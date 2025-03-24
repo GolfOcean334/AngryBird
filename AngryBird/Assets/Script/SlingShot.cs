@@ -1,115 +1,191 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class SlingShot : MonoBehaviour
 {
     [Header("Slingshot")]
-    [SerializeField] private LineRenderer[] lineRenderers; // Contient les LineRenderers représentant les élastiques de la fronde
-    [SerializeField] private Transform[] stripPositions; // Points d'attache des élastiques (gauche et droite)
-    [SerializeField] private Transform centerPosition; // Position centrale de la fronde (d'où part l'oiseau)
-    [SerializeField] private Transform idlePosition; // Position par défaut de l'élastique quand il est relâché
-    [SerializeField] private Collider2D slingshotCollider; // Collider de la fronde pour éviter les interactions après un tir
-    [SerializeField] private float bottomBoundary; // Limite basse pour éviter que l'oiseau ne soit trop bas avant d'être tiré
-    [SerializeField] private float maxLenght; // Longueur maximale à laquelle on peut tirer l'élastique
-    [SerializeField] private float force; // Force de propulsion de l'oiseau au lâcher de l'élastique
+    [SerializeField] private LineRenderer[] lineRenderers;
+    [SerializeField] private Transform[] stripPositions;
+    [SerializeField] private Transform centerPosition;
+    [SerializeField] private Transform idlePosition;
+    [SerializeField] private Collider2D slingshotCollider;
+    [SerializeField] private float bottomBoundary;
+    [SerializeField] private float maxLenght;
+    [SerializeField] private float force;
 
     [Header("Birds")]
     [SerializeField] private BirdManager birdManager;
-    [SerializeField] private float birdPositionOffsetX; // Décalage horizontal appliqué à la position de l'oiseau dans l'élastique
-    [SerializeField] private float birdPositionOffsetY; // Décalage vertical appliqué à la position de l'oiseau dans l'élastique
+    [SerializeField] private float birdPositionOffsetX;
+    [SerializeField] private float birdPositionOffsetY;
 
-    private Vector3 currentPosition; // Position actuelle de la souris convertie en coordonnées du monde
-    private bool isMouseDown; // Indique si la souris est en train d'être maintenue enfoncée
+    private Vector3 currentPosition;
+    private bool isMouseDown;
 
     private void Start()
     {
-        // Initialise les LineRenderers pour afficher les élastiques de la fronde
-        lineRenderers[0].positionCount = 2; // Chaque élastique est une ligne avec 2 points
+        if (birdManager == null)
+        {
+            Debug.LogError("BirdManager n'est pas assigné dans l'inspecteur.");
+            return;
+        }
+
+        lineRenderers[0].positionCount = 2;
         lineRenderers[1].positionCount = 2;
 
-        // Place les extrémités des élastiques aux points d'attache initiaux
         lineRenderers[0].SetPosition(0, stripPositions[0].position);
         lineRenderers[1].SetPosition(0, stripPositions[1].position);
 
-        // Initialise les oiseaux (généralement en instanciant le premier oiseau)
         birdManager.InitializeBirds();
     }
 
     private void Update()
     {
-        if (isMouseDown) // Si la souris est maintenue enfoncée
+        if (isMouseDown)
         {
-            // Récupère la position de la souris en pixels et la convertit en coordonnées monde
             Vector3 mousePosition = Input.mousePosition;
-            mousePosition.z = 10; // Définir une profondeur pour la conversion en 3D
+            mousePosition.z = 10;
             currentPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-            // Calcule la position limitée de l'élastique en fonction de la longueur max
             currentPosition = centerPosition.position + Vector3.ClampMagnitude(currentPosition - centerPosition.position, maxLenght);
 
-            // Empêche l'élastique d'aller trop bas (évite que l'oiseau ne passe sous une certaine limite)
             currentPosition.y = Mathf.Clamp(currentPosition.y, bottomBoundary, currentPosition.y);
 
-            // Met à jour la position des élastiques
             SetStrips(currentPosition);
 
-            // Ajoutez les offsets ici
             Vector3 offsetPosition = currentPosition + new Vector3(birdPositionOffsetX, birdPositionOffsetY, 0);
             float appliedForce = (centerPosition.position - offsetPosition).magnitude * force;
-            // Affiche la trajectoire prévue de l'oiseau
-            TrajectoryManager.Instance.DisplayTrajectory(birdManager.GetCurrentBird(), offsetPosition, centerPosition.position, appliedForce);
 
-            // Active le collider de l'oiseau (s'il était désactivé auparavant)
+            if (TrajectoryManager.Instance != null)
+            {
+                TrajectoryManager.Instance.DisplayTrajectory(birdManager.GetCurrentBird(), offsetPosition, centerPosition.position, appliedForce);
+            }
+
             birdManager.EnableCollider();
         }
         else
         {
             ResetStrips();
-            TrajectoryManager.Instance.HideTrajectory();
+            if (TrajectoryManager.Instance != null)
+            {
+                TrajectoryManager.Instance.HideTrajectory();
+            }
         }
     }
 
     private void OnMouseDown()
     {
-        isMouseDown = true; // Détecte que la souris a été pressée
+        isMouseDown = true;
     }
 
     private void OnMouseUp()
     {
-        isMouseDown = false; // Détecte que la souris a été relâchée
-        Shoot(); // Tire l'oiseau
+        isMouseDown = false;
+        Shoot();
     }
 
-    // Réinitialise la position des élastiques à l'état initial
     private void ResetStrips()
     {
-        currentPosition = idlePosition.position; // Remet la position de l'élastique à l'idle
+        currentPosition = idlePosition.position;
         SetStrips(currentPosition);
     }
 
-    // Met à jour la position des élastiques et la position de l'oiseau
     private void SetStrips(Vector3 position)
     {
-        lineRenderers[0].SetPosition(1, position); // Déplace le deuxième point de l'élastique gauche
-        lineRenderers[1].SetPosition(1, position); // Déplace le deuxième point de l'élastique droit
+        lineRenderers[0].SetPosition(1, position);
+        lineRenderers[1].SetPosition(1, position);
 
-        // Met à jour la position de l'oiseau avec un décalage défini
         birdManager.UpdateBirdPosition(position, centerPosition.position, birdPositionOffsetX, birdPositionOffsetY);
     }
 
-    // Tire l'oiseau en appliquant la force calculée
     private void Shoot()
     {
-        birdManager.Shoot(currentPosition, centerPosition.position, force); // Applique la force de tir à l'oiseau
+        if (birdManager.GetCurrentBird() == null)
+        {
+            Debug.LogError("Aucun oiseau n'est disponible pour être lancé.");
+            return;
+        }
 
-        slingshotCollider.enabled = false; // Désactive le collider pour éviter les interactions inutiles après le tir
+        Vector3 direction = currentPosition - centerPosition.position;
+        float angle = Mathf.Atan2(direction.y, direction.x);
+        float length = direction.magnitude;
 
-        Invoke("NextBird", 2); // Prépare le prochain oiseau après un délai de 2 secondes
+        List<Vector2> trajectory = LancerOiseauFrottementRecurrence(angle, length);
+
+        // Appliquer la première position de la trajectoire à l'oiseau
+        birdManager.Shoot(currentPosition, centerPosition.position, force);
+
+        // Appliquer les positions suivantes de la trajectoire à l'oiseau
+        StartCoroutine(ApplyTrajectory(trajectory));
+
+        slingshotCollider.enabled = false;
+
+        Invoke("NextBird", 2);
     }
 
-    // Prépare le prochain oiseau après le tir
+    private IEnumerator ApplyTrajectory(List<Vector2> trajectory)
+    {
+        Rigidbody2D bird = birdManager.GetCurrentBird();
+        foreach (Vector2 position in trajectory)
+        {
+            bird.position = position;
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
     private void NextBird()
     {
-        birdManager.CreateBird(); // Génère un nouvel oiseau
-        slingshotCollider.enabled = true; // Réactive le collider pour le prochain tir
+        birdManager.CreateBird();
+        slingshotCollider.enabled = true;
+    }
+
+    // Fonction pour calculer la vitesse initiale
+    private float VitesseInitiale(float alpha, float l1)
+    {
+        Bird currentBird = birdManager.GetCurrentBirdScript();
+        if (currentBird == null)
+        {
+            Debug.LogError("Aucun oiseau n'est disponible pour calculer la vitesse initiale.");
+            return 0;
+        }
+
+        float g = currentBird.g;
+        float k = currentBird.k;
+        float f2 = currentBird.f2;
+        float mass = currentBird.mass;
+
+        return l1 * Mathf.Sqrt(k / mass) * Mathf.Sqrt(1 - Mathf.Pow((mass * g * Mathf.Sin(alpha) / (k * l1)), 2));
+    }
+
+    // Fonction pour calculer la trajectoire avec frottement par récurrence
+    private List<Vector2> LancerOiseauFrottementRecurrence(float alpha, float l1)
+    {
+        float v0 = VitesseInitiale(alpha, l1);
+        float dt = 0.01f; // Pas de temps (plus petit = plus précis)
+        float x = 0, y = 0; // Position initiale
+        List<Vector2> positions = new List<Vector2> { new Vector2(0, 0) }; // Liste des positions
+        float vx = v0 * Mathf.Cos(alpha); // Vitesse initiale - coordonnée x
+        float vy = v0 * Mathf.Sin(alpha); // Vitesse initiale - coordonnée y
+
+        Bird currentBird = birdManager.GetCurrentBirdScript();
+        if (currentBird == null)
+        {
+            Debug.LogError("Aucun oiseau n'est disponible pour calculer la trajectoire.");
+            return positions;
+        }
+
+        float f2 = currentBird.f2;
+        float g = currentBird.g;
+
+        while (y >= 0) // Tant que l'oiseau n'a pas touché le sol
+        {
+            x += vx * dt; // Mise à jour de la position horizontale
+            y += vy * dt; // Mise à jour de la position verticale
+            positions.Add(new Vector2(x, y)); // Stockage des positions
+            vx += -f2 * vx * dt; // Mise à jour de la vitesse horizontale
+            vy += -(g + f2 * vy) * dt; // Mise à jour de la vitesse verticale
+        }
+
+        return positions;
     }
 }

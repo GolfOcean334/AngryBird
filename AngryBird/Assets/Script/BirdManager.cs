@@ -247,4 +247,10 @@ public class BirdManager : MonoBehaviour
         float angle = Mathf.Atan2(bird.velocity.y, bird.velocity.x) * Mathf.Rad2Deg;
         bird.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
+
+    public Bird GetCurrentBirdScript()
+    {
+        return bird?.GetComponent<Bird>();
+    }
+
 }
