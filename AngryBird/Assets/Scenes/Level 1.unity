@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 779289183}
   m_Layer: 0
   m_Name: Floor (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1470,7 +1470,7 @@ GameObject:
   - component: {fileID: 1627569725}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1969,7 +1969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2738546359337243938, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
       propertyPath: maxBirds
-      value: 3
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2738546359337243938, guid: f1921c3c30f63d848a3425b0d28eba9b, type: 3}
       propertyPath: UIManager

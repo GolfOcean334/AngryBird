@@ -103,35 +103,39 @@ public class SlingShot : MonoBehaviour
             return;
         }
 
-        // Calcul de la direction du tir
+        // Calcul de la direction du tir basé sur currentPosition
+        // (currentPosition est la position de la fronde sans offset)
         Vector3 direction = currentPosition - centerPosition.position;
         float angle = Mathf.Atan2(direction.y, direction.x);
         float length = direction.magnitude;
 
-        // On peut calculer la trajectoire pour l'affichage (sans modifier le mouvement réel)
-        List<Vector2> trajectory = LancerOiseauFrottementRecurrence(angle, length);
+        // Calculer la position de lancement en appliquant l'offset
+        Vector3 launchPosition = currentPosition + new Vector3(birdPositionOffsetX, birdPositionOffsetY, 0);
 
-        // Lancer l'oiseau en passant la position et la force au BirdManager,
-        // qui transmettra la vitesse initiale à l'oiseau.
-        birdManager.Shoot(currentPosition, centerPosition.position, force);
+        // Calculer la trajectoire prévisualisée à partir de launchPosition
+        float appliedForce = (centerPosition.position - launchPosition).magnitude * force;
+        Vector3 initialVelocity = (centerPosition.position - launchPosition).normalized * appliedForce;
+
+        if (TrajectoryManager.Instance != null)
+        {
+            TrajectoryManager.Instance.DisplayTrajectory(launchPosition, initialVelocity);
+        }
+
+        // Optionnel : ignorer temporairement le collider du slingshot (déjà présent dans ton code)
+        Bird currentBird = birdManager.GetCurrentBirdScript();
+        if (currentBird != null)
+        {
+            Physics2D.IgnoreCollision(currentBird.GetComponent<Collider2D>(), slingshotCollider, true);
+        }
+
+        // Lancer l'oiseau en passant la position de lancement
+        birdManager.Shoot(launchPosition, centerPosition.position, force);
 
         slingshotCollider.enabled = false;
-
-        // Optionnel : cacher la trajectoire affichée
-        //StartCoroutine(ApplyTrajectory(trajectory));
 
         Invoke("NextBird", 2);
     }
 
-    private IEnumerator ApplyTrajectory(List<Vector2> trajectory)
-    {
-        GameObject bird = birdManager.GetCurrentBirdScript().gameObject;
-        foreach (Vector2 position in trajectory)
-        {
-            bird.transform.position = position;
-            yield return new WaitForSeconds(0.01f);
-        }
-    }
 
     private void NextBird()
     {

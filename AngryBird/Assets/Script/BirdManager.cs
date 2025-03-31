@@ -96,12 +96,13 @@ public class BirdManager : MonoBehaviour
     }
 
     // Méthode appelée lors du lancement (depuis SlingShot)
-    public void Shoot(Vector3 currentPosition, Vector3 centerPosition, float force)
+    public void Shoot(Vector3 launchPosition, Vector3 centerPosition, float force)
     {
         if (bird == null) return;
 
-        // Calculer la force initiale (direction inverse du tir)
-        Vector3 birdForce = (currentPosition - centerPosition) * force * -1;
+        // Calculer la force initiale en se basant sur launchPosition
+        Vector3 birdForce = (centerPosition - launchPosition) * force;
+
         // On active le lancement en passant la vitesse à l'oiseau
         Bird birdScript = bird.GetComponent<Bird>();
         if (birdScript != null)
@@ -109,6 +110,7 @@ public class BirdManager : MonoBehaviour
             birdScript.SetInitialVelocity(birdForce);
         }
     }
+
 
     public void UpdateBirdPosition(Vector3 position, Vector3 centerPosition, float offsetX, float offsetY)
     {
