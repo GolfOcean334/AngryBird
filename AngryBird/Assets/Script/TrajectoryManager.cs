@@ -35,12 +35,9 @@ public class TrajectoryManager : MonoBehaviour
     }
 
     // Affiche la trajectoire en calculant les positions des points à partir de la force appliquée
-    public void DisplayTrajectory(Rigidbody2D bird, Vector3 currentPosition, Vector3 centerPosition, float force)
+    public void DisplayTrajectory(Vector3 startPosition, Vector3 initialVelocity)
     {
-        if (bird == null) return; // Vérifie si l'oiseau est null pour éviter les erreurs
-
-        Vector3 initialVelocity = (centerPosition - currentPosition).normalized * force; // Calcule la vitesse initiale de l'oiseau
-        Vector3 currentPos = bird.transform.position; // Position de départ de la trajectoire
+        Vector3 currentPos = startPosition; // Position de départ de la trajectoire
         Vector3 currentVelocity = initialVelocity; // Stocke la vitesse actuelle de l'oiseau
 
         for (int i = 0; i < trajectoryPointCount; i++)
