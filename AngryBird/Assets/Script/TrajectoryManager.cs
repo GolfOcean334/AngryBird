@@ -34,7 +34,6 @@ public class TrajectoryManager : MonoBehaviour
         }
     }
 
-    // Affiche la trajectoire en calculant les positions des points à partir de la force appliquée
     public void DisplayTrajectory(Vector3 startPosition, Vector3 initialVelocity)
     {
         Vector3 currentPos = startPosition; // Position de départ de la trajectoire

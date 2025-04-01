@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 public class SlingShot : MonoBehaviour
 {
@@ -54,10 +55,16 @@ public class SlingShot : MonoBehaviour
             float appliedForce = (centerPosition.position - offsetPosition).magnitude * force;
             Vector3 initialVelocity = (centerPosition.position - offsetPosition).normalized * appliedForce;
 
-            if (TrajectoryManager.Instance != null)
-            {
+            // Calculer la trajectoire avec frottement
+        Vector3 direction = currentPosition - centerPosition.position;
+        float angle = Mathf.Atan2(direction.y, direction.x);
+        float length = direction.magnitude;
+        List<Vector2> trajectoryPoints = LancerOiseauFrottementRecurrence(angle, length);
+
+        if (TrajectoryManager.Instance != null)
+        {
                 TrajectoryManager.Instance.DisplayTrajectory(offsetPosition, initialVelocity);
-            }
+        }
 
             birdManager.EnableCollider();
         }
@@ -104,7 +111,6 @@ public class SlingShot : MonoBehaviour
         }
 
         // Calcul de la direction du tir basé sur currentPosition
-        // (currentPosition est la position de la fronde sans offset)
         Vector3 direction = currentPosition - centerPosition.position;
         float angle = Mathf.Atan2(direction.y, direction.x);
         float length = direction.magnitude;
@@ -116,12 +122,10 @@ public class SlingShot : MonoBehaviour
         float appliedForce = (centerPosition.position - launchPosition).magnitude * force;
         Vector3 initialVelocity = (centerPosition.position - launchPosition).normalized * appliedForce;
 
-        if (TrajectoryManager.Instance != null)
-        {
-            TrajectoryManager.Instance.DisplayTrajectory(launchPosition, initialVelocity);
-        }
+        // Utiliser LancerOiseauFrottementRecurrence pour calculer la trajectoire avec frottement
+        List<Vector2> trajectoryPoints = LancerOiseauFrottementRecurrence(angle, length);
 
-        // Optionnel : ignorer temporairement le collider du slingshot (déjà présent dans ton code)
+        // Optionnel : ignorer temporairement le collider du slingshot
         Bird currentBird = birdManager.GetCurrentBirdScript();
         if (currentBird != null)
         {
@@ -135,6 +139,7 @@ public class SlingShot : MonoBehaviour
 
         Invoke("NextBird", 2);
     }
+
 
 
     private void NextBird()

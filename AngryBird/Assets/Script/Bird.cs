@@ -16,7 +16,7 @@ public class Bird : MonoBehaviour
     public float k = 10f;   // constante du ressort
     public float f2 { get; private set; } // coefficient de frottement (calculé via mass)
 
-    private Vector3 velocity; // vitesse courante
+    private Vector3 velocity; // vitesse actuelle
     private bool isLaunched = false;
 
     // Capacité spéciale

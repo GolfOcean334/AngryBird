@@ -133,6 +133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435613eb0d5160b4aa59eef19b191527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mass: 50
   g: 9.81
   k: 10
-  f2: 0
+  birdType: 0
+  dashForce: 10
+  jumpForce: 5
+  radiusExplosion: 2
+  explosionForce: 5
