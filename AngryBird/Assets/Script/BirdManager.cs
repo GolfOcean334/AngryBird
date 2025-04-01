@@ -31,20 +31,15 @@ public class BirdManager : MonoBehaviour
         GameObject birdPrefab;
         BirdType type;
 
-        if (randomValue > 0.75f)
+        if (randomValue > 0.66f)
         {
             birdPrefab = fastBirdPrefab;
             type = BirdType.Fast;
         }
-        else if (randomValue > 0.5f)
+        else if (randomValue > 0.33f)
         {
             birdPrefab = doubleJumpBirdPrefab;
             type = BirdType.DoubleJump;
-        }
-        else if (randomValue > 0.25f)
-        {
-            birdPrefab = explosiveBirdPrefab;
-            type = BirdType.Explosive;
         }
         else
         {
@@ -83,7 +78,7 @@ public class BirdManager : MonoBehaviour
 
     private IEnumerator ShowEndGameAfterDelay()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         UIManager.ShowUIEndGame();
     }
 

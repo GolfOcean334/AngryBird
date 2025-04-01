@@ -7,4 +7,8 @@ public class SceneManagerScript : MonoBehaviour
     {
         SceneManager.LoadScene("LoadingScreen");
     }
+    public void ReturnMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }

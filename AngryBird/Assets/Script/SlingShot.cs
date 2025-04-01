@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 
 public class SlingShot : MonoBehaviour
 {
@@ -56,15 +54,15 @@ public class SlingShot : MonoBehaviour
             Vector3 initialVelocity = (centerPosition.position - offsetPosition).normalized * appliedForce;
 
             // Calculer la trajectoire avec frottement
-        Vector3 direction = currentPosition - centerPosition.position;
-        float angle = Mathf.Atan2(direction.y, direction.x);
-        float length = direction.magnitude;
-        List<Vector2> trajectoryPoints = LancerOiseauFrottementRecurrence(angle, length);
+            Vector3 direction = currentPosition - centerPosition.position;
+            float angle = Mathf.Atan2(direction.y, direction.x);
+            float length = direction.magnitude;
+            List<Vector2> trajectoryPoints = LancerOiseauFrottementRecurrence(angle, length);
 
-        if (TrajectoryManager.Instance != null)
-        {
+            if (TrajectoryManager.Instance != null)
+            {
                 TrajectoryManager.Instance.DisplayTrajectory(offsetPosition, initialVelocity);
-        }
+            }
 
             birdManager.EnableCollider();
         }
@@ -167,28 +165,31 @@ public class SlingShot : MonoBehaviour
     // Calcul de la trajectoire avec frottement par récurrence
     private List<Vector2> LancerOiseauFrottementRecurrence(float alpha, float l1)
     {
+        // Calculer la vitesse initiale de l'oiseau
         float v0 = VitesseInitiale(alpha, l1);
-        float dt = 0.01f;
-        float x = 0, y = 0;
-        List<Vector2> positions = new List<Vector2> { new Vector2(0, 0) };
-        float vx = v0 * Mathf.Cos(alpha);
-        float vy = v0 * Mathf.Sin(alpha);
+        float dt = 0.01f; // Intervalle de temps pour chaque étape de la simulation
+        float x = 0, y = 0; // Positions initiales
+        List<Vector2> positions = new List<Vector2> { new Vector2(0, 0) }; // Liste des positions de la trajectoire
+        float vx = v0 * Mathf.Cos(alpha); // Composante x de la vitesse initiale
+        float vy = v0 * Mathf.Sin(alpha); // Composante y de la vitesse initiale
         Bird currentBird = birdManager.GetCurrentBirdScript();
         if (currentBird == null)
         {
             Debug.LogError("Aucun oiseau n'est disponible pour calculer la trajectoire.");
             return positions;
         }
-        float f2 = currentBird.f2;
-        float g = currentBird.g;
+        float f2 = currentBird.f2; // Coefficient de frottement
+        float g = currentBird.g; // Gravité
+
+        // Boucle pour calculer les positions successives de l'oiseau
         while (y >= 0)
         {
-            x += vx * dt;
-            y += vy * dt;
-            positions.Add(new Vector2(x, y));
-            vx += -f2 * vx * dt;
-            vy += -(g + f2 * vy) * dt;
+            x += vx * dt; // Mettre à jour la position x
+            y += vy * dt; // Mettre à jour la position y
+            positions.Add(new Vector2(x, y)); // Ajouter la nouvelle position à la liste
+            vx += -f2 * vx * dt; // Mettre à jour la vitesse x en tenant compte du frottement
+            vy += -(g + f2 * vy) * dt; // Mettre à jour la vitesse y en tenant compte de la gravité et du frottement
         }
-        return positions;
+        return positions; // Retourner la liste des positions de la trajectoire
     }
 }

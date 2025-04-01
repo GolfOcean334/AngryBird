@@ -11,28 +11,28 @@ public enum BirdType
 public class Bird : MonoBehaviour
 {
     // Paramètres de physique
-    [SerializeField] public float mass = 0.8f;
-    public float g = 9.81f; // gravité
-    public float k = 10f;   // constante du ressort
-    public float f2 { get; private set; } // coefficient de frottement (calculé via mass)
+    [SerializeField] public float mass = 0.8f; // Masse de l'oiseau
+    public float g = 9.81f; // Gravité
+    public float k = 10f;   // Constante du ressort
+    public float f2 { get; private set; } // Coefficient de frottement (calculé via la masse)
 
-    private Vector3 velocity; // vitesse courante
-    private bool isLaunched = false;
+    private Vector3 velocity; // Vitesse courante de l'oiseau
+    private bool isLaunched = false; // Indique si l'oiseau a été lancé
 
     // Capacité spéciale
-    public BirdType birdType = BirdType.Normal;
-    private bool hasDashed = false;
-    [SerializeField] private float dashForce = 10f;
-    [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float radiusExplosion = 2f;
-    [SerializeField] private float explosionForce = 5f;
+    public BirdType birdType = BirdType.Normal; // Type de l'oiseau
+    private bool hasDashed = false; // Indique si l'oiseau a utilisé son dash
+    [SerializeField] private float dashForce = 10f; // Force du dash
+    [SerializeField] private float jumpForce = 5f; // Force du saut
+    [SerializeField] private float radiusExplosion = 2f; // Rayon de l'explosion
+    [SerializeField] private float explosionForce = 5f; // Force de l'explosion
 
-    private BirdManager birdManager; // référence au manager pour notifier la fin de vol
+    private BirdManager birdManager; // Référence au manager pour notifier la fin de vol
 
     private void Start()
     {
-        f2 = 0.2f / mass;
-        birdManager = FindObjectOfType<BirdManager>();
+        f2 = 0.2f / mass; // Calcul du coefficient de frottement
+        birdManager = FindObjectOfType<BirdManager>(); // Trouver le BirdManager dans la scène
     }
 
     private void Update()
@@ -54,18 +54,19 @@ public class Bird : MonoBehaviour
     {
         get { return isLaunched; }
     }
+
     private void ApplyGravity()
     {
-        Vector3 gravity = new Vector3(0, -g, 0);
-        velocity += gravity * Time.deltaTime;
+        Vector3 gravity = new Vector3(0, -g, 0); // Vecteur de gravité
+        velocity += gravity * Time.deltaTime; // Appliquer la gravité à la vitesse
     }
 
     private void UpdateRotation()
     {
         if (velocity.sqrMagnitude > 0.001f)
         {
-            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg; // Calculer l'angle de rotation
+            transform.rotation = Quaternion.Euler(0, 0, angle); // Appliquer la rotation
         }
     }
 
@@ -92,14 +93,14 @@ public class Bird : MonoBehaviour
 
     private void Dash()
     {
-        Vector2 dashDirection = velocity.normalized;
-        velocity += (Vector3)dashDirection * dashForce;
-        hasDashed = true;
+        Vector2 dashDirection = velocity.normalized; // Direction du dash
+        velocity += (Vector3)dashDirection * dashForce; // Appliquer la force du dash
+        hasDashed = true; // Marquer le dash comme utilisé
     }
 
     private void Jump()
     {
-        // Remettre une impulsion verticale
+        // Appliquer une impulsion verticale
         velocity = new Vector2(velocity.x, jumpForce);
     }
 
@@ -112,31 +113,31 @@ public class Bird : MonoBehaviour
             // On évite de modifier la position de soi-même
             if (obj.gameObject != gameObject)
             {
-                Vector2 direction = obj.transform.position - transform.position;
-                float distance = direction.magnitude;
-                float forceFactor = 1 - (distance / radiusExplosion);
-                obj.transform.position += (Vector3)(direction.normalized * explosionForce * forceFactor * Time.deltaTime);
+                Vector2 direction = obj.transform.position - transform.position; // Direction de l'explosion
+                float distance = direction.magnitude; // Distance de l'objet
+                float forceFactor = 1 - (distance / radiusExplosion); // Facteur de force basé sur la distance
+                obj.transform.position += (Vector3)(direction.normalized * explosionForce * forceFactor * Time.deltaTime); // Appliquer la force de l'explosion
             }
         }
     }
 
     public void SetInitialVelocity(Vector3 initialVelocity)
     {
-        velocity = initialVelocity;
-        isLaunched = true;
+        velocity = initialVelocity; // Définir la vitesse initiale
+        isLaunched = true; // Marquer l'oiseau comme lancé
     }
 
     public void SetLaunched(bool launched)
     {
-        isLaunched = launched;
+        isLaunched = launched; // Définir l'état de lancement
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isLaunched)
         {
-            isLaunched = false;
-            birdManager?.BirdLanded();
+            isLaunched = false; // Marquer l'oiseau comme non lancé
+            birdManager?.BirdLanded(); // Notifier le BirdManager que l'oiseau a atterri
 
             // Calculer les dégâts basés sur la vitesse de l'oiseau
             float collisionForce = velocity.magnitude;
@@ -160,5 +161,4 @@ public class Bird : MonoBehaviour
                 return baseDamage;
         }
     }
-
 }
