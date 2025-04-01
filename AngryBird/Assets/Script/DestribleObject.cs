@@ -30,7 +30,7 @@ public class DestructibleObject : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         int oldHealth = currentHealth;
 
@@ -63,6 +63,7 @@ public class DestructibleObject : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
     private void UpdateSprite()
     {

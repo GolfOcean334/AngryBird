@@ -16,7 +16,7 @@ public class Bird : MonoBehaviour
     public float k = 10f;   // constante du ressort
     public float f2 { get; private set; } // coefficient de frottement (calculé via mass)
 
-    private Vector3 velocity; // vitesse actuelle
+    private Vector3 velocity; // vitesse courante
     private bool isLaunched = false;
 
     // Capacité spéciale
@@ -137,6 +137,34 @@ public class Bird : MonoBehaviour
         {
             isLaunched = false;
             birdManager?.BirdLanded();
+
+            // Calculer les dégâts basés sur la vitesse de l'oiseau
+            float collisionForce = velocity.magnitude;
+            int damage = CalculateDamage(collisionForce);
+
+            // Appliquer les dégâts à l'objet destructible
+            DestructibleObject destructible = collision.gameObject.GetComponent<DestructibleObject>();
+            if (destructible != null)
+            {
+                destructible.TakeDamage(damage);
+            }
         }
     }
+
+    private int CalculateDamage(float collisionForce)
+    {
+        int baseDamage = Mathf.RoundToInt(collisionForce * 10); // Exemple de calcul de base des dégâts
+        switch (birdType)
+        {
+            case BirdType.Fast:
+                return baseDamage * 2; // Les oiseaux rapides infligent des dégâts doublés
+            case BirdType.DoubleJump:
+                return baseDamage; // Les oiseaux à double saut infligent des dégâts normaux
+            case BirdType.Explosive:
+                return baseDamage * 3; // Les oiseaux explosifs infligent des dégâts triplés
+            default:
+                return baseDamage; // Les oiseaux normaux infligent des dégâts de base
+        }
+    }
+
 }
