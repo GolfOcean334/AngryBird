@@ -156,14 +156,8 @@ public class Bird : MonoBehaviour
         int baseDamage = Mathf.RoundToInt(collisionForce * 10); // Exemple de calcul de base des dégâts
         switch (birdType)
         {
-            case BirdType.Fast:
-                return baseDamage * 2; // Les oiseaux rapides infligent des dégâts doublés
-            case BirdType.DoubleJump:
-                return baseDamage; // Les oiseaux à double saut infligent des dégâts normaux
-            case BirdType.Explosive:
-                return baseDamage * 3; // Les oiseaux explosifs infligent des dégâts triplés
             default:
-                return baseDamage; // Les oiseaux normaux infligent des dégâts de base
+                return baseDamage;
         }
     }
 
