@@ -149,6 +149,11 @@ public class Bird : MonoBehaviour
             {
                 destructible.TakeDamage(damage);
             }
+
+            // Ajouter un Rigidbody2D pour appliquer la gravité
+            Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+            rb.mass = mass;
+            rb.gravityScale = 1; // Ajuster la gravité si nécessaire
         }
     }
 
