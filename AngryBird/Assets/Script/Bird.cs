@@ -22,6 +22,7 @@ public class Bird : MonoBehaviour
     // Capacité spéciale
     public BirdType birdType = BirdType.Normal; // Type de l'oiseau
     private bool hasDashed = false; // Indique si l'oiseau a utilisé son dash
+    private bool hasJumped = false; // Indique si l'oiseau a utilisé son jump
     [SerializeField] private float dashForce = 10f; // Force du dash
     [SerializeField] private float jumpForce = 5f; // Force du saut
     [SerializeField] private float radiusExplosion = 2f; // Rayon de l'explosion
@@ -80,7 +81,7 @@ public class Bird : MonoBehaviour
                     if (!hasDashed) { Dash(); }
                     break;
                 case BirdType.DoubleJump:
-                    Jump();
+                    if (!hasJumped) { Jump(); }
                     break;
                 case BirdType.Explosive:
                     Explode();
@@ -102,6 +103,7 @@ public class Bird : MonoBehaviour
     {
         // Appliquer une impulsion verticale
         velocity = new Vector2(velocity.x, jumpForce);
+        hasJumped = true;
     }
 
     private void Explode()
